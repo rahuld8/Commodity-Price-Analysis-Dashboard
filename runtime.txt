@@ -1,1 +1,1 @@
-psycopg2-binary==2.9.9
+python-3.12.18
