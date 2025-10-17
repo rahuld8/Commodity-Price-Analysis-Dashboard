@@ -8,7 +8,7 @@ plotly==6.3.1
 
 # Database
 SQLAlchemy==2.0.44
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.9  # pre-built binary, no pg_config needed
 
 # Forecasting
 prophet==1.1.7
