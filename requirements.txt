@@ -16,9 +16,8 @@ cmdstanpy==1.2.5
 pystan==3.10.0
 statsmodels==0.14.5
 
-# Misc / Dependencies
+# Misc
 python-dateutil==2.9.0.post0
 pytz==2025.2
-packaging==25.0
 requests==2.32.3
 tqdm==4.67.1
