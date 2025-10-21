@@ -6,6 +6,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import psycopg
 import plotly.graph_objects as go
 import plotly.express as px
 from sqlalchemy import create_engine, text
@@ -337,4 +338,5 @@ st.plotly_chart(fig_vol, use_container_width=True)
 # -----------------------------
 st.markdown("<hr style='border:1px solid #333;'>", unsafe_allow_html=True)
 st.caption("📊 FY 2025–26 Data | Hybrid forecasting (Prophet + ARIMA + Baseline) |")
+
 
