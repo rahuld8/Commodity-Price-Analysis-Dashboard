@@ -1,7 +1,12 @@
 streamlit==1.38.0
 pandas==2.2.2
 psycopg2-binary==2.9.9
+SQLAlchemy==2.0.24
+plotly==5.15.0
+prophet==1.2.2
+statsmodels==0.14.1
 rich==14.2.0
 markdown-it-py==4.0.0
 mdurl==0.1.2
 pygments==2.19.2
+numpy==1.27.0
