@@ -11,8 +11,16 @@ import plotly.graph_objects as go
 import plotly.express as px
 from sqlalchemy import create_engine, text
 from prophet import Prophet
+from prophet.serialize import model_to_json, model_from_json
 from statsmodels.tsa.arima.model import ARIMA
 from datetime import datetime, timedelta
+import os
+
+# -----------------------------
+# Prophet Backend Fix
+# -----------------------------
+# Force cmdstanpy backend to avoid Stan compilation issues on Streamlit Cloud
+os.environ["PROPHET_BACKEND"] = "cmdstanpy"
 
 # -----------------------------
 # Page Configuration
@@ -27,7 +35,6 @@ st.set_page_config(
 # Database Configuration
 # -----------------------------
 CONNECTION_STRING = "postgresql+psycopg2://doadmin:AVNS_22_hUdTYzlAeXu1LMmp@arpanseva-db-postgresql-blr1-do-user-8204475-0.c.db.ondigitalocean.com:25060/defaultdb"
-
 TABLE_NAME = "commodity_mandi_price"
 
 # -----------------------------
@@ -95,7 +102,7 @@ st.markdown(
     [data-testid="stSidebar"] .css-1lcbmhc { padding-top: 12px; }
     .sidebar-title { color:#E6EEF8; font-weight:700; margin-bottom:6px; }
     .sidebar-sub { color:#AEB8C6; font-size:12px; margin-bottom:8px; }
-    .sidebar-divider { border-top:1px solid rgba(255,255,255,0.1); margin:10px 0 12px 0; }
+    .sidebar-divider { border-top:1px solid rgba(255,255,255,.1); margin:10px 0 12px 0; }
     </style>
     """,
     unsafe_allow_html=True
@@ -199,7 +206,6 @@ if "commodity_name" in df_f.columns:
         <div class="value">{f'{volatility:.2f}%' if pd.notna(volatility) else 'N/A'}</div><div class="desc">Std dev / mean</div></div>
         </div>
         """, unsafe_allow_html=True)
-
 # -----------------------------
 # 📈 Monthly Trend
 # -----------------------------
@@ -338,6 +344,7 @@ st.plotly_chart(fig_vol, use_container_width=True)
 # -----------------------------
 st.markdown("<hr style='border:1px solid #333;'>", unsafe_allow_html=True)
 st.caption("📊 FY 2025–26 Data | Hybrid forecasting (Prophet + ARIMA + Baseline) |")
+
 
 
 
