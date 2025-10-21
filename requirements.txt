@@ -10,3 +10,4 @@ markdown-it-py==4.0.0
 mdurl==0.1.2
 pygments==2.19.2
 numpy==1.26.4
+cmdstanpy==1.1.0
