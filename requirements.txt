@@ -1,5 +1,5 @@
 streamlit==1.38.0
-rich==13.5.3          # last version <14 compatible with Streamlit 1.38.0
+rich==13.5.3
 pandas==2.2.2
 psycopg2-binary==2.9.9
 SQLAlchemy==2.0.24
