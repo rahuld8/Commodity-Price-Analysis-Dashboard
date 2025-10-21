@@ -9,4 +9,4 @@ statsmodels==0.14.1
 markdown-it-py==4.0.0
 mdurl==0.1.2
 pygments==2.19.2
-numpy==1.27.0
+numpy==1.26.4
