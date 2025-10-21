@@ -4,7 +4,7 @@ pandas==2.2.2
 psycopg2-binary==2.9.9
 SQLAlchemy==2.0.24
 plotly==5.15.0
-prophet==1.2.2
+prophet==1.2.0
 statsmodels==0.14.1
 markdown-it-py==4.0.0
 mdurl==0.1.2
