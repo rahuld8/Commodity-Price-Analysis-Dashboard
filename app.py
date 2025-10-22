@@ -11,16 +11,8 @@ import plotly.graph_objects as go
 import plotly.express as px
 from sqlalchemy import create_engine, text
 from prophet import Prophet
-from prophet.serialize import model_to_json, model_from_json
 from statsmodels.tsa.arima.model import ARIMA
 from datetime import datetime, timedelta
-import os
-
-# -----------------------------
-# Prophet Backend Fix
-# -----------------------------
-# Force cmdstanpy backend to avoid Stan compilation issues on Streamlit Cloud
-os.environ["PROPHET_BACKEND"] = "cmdstanpy"
 
 # -----------------------------
 # Page Configuration
@@ -35,6 +27,7 @@ st.set_page_config(
 # Database Configuration
 # -----------------------------
 CONNECTION_STRING = "postgresql+psycopg2://doadmin:AVNS_22_hUdTYzlAeXu1LMmp@arpanseva-db-postgresql-blr1-do-user-8204475-0.c.db.ondigitalocean.com:25060/defaultdb"
+
 TABLE_NAME = "commodity_mandi_price"
 
 # -----------------------------
@@ -102,7 +95,7 @@ st.markdown(
     [data-testid="stSidebar"] .css-1lcbmhc { padding-top: 12px; }
     .sidebar-title { color:#E6EEF8; font-weight:700; margin-bottom:6px; }
     .sidebar-sub { color:#AEB8C6; font-size:12px; margin-bottom:8px; }
-    .sidebar-divider { border-top:1px solid rgba(255,255,255,.1); margin:10px 0 12px 0; }
+    .sidebar-divider { border-top:1px solid rgba(255,255,255,0.1); margin:10px 0 12px 0; }
     </style>
     """,
     unsafe_allow_html=True
@@ -114,22 +107,22 @@ st.sidebar.markdown("<div class='sidebar-divider'></div>", unsafe_allow_html=Tru
 
 # 🌿 Commodity filter
 commodity_opts = sorted(df["commodity_name"].dropna().unique())
-commodity_default = ["Maize"] if "Maize" in commodity_opts else (commodity_opts[:1] if commodity_opts else [])
+commodity_default = ["Soyabean"] if "Soyabean" in commodity_opts else (commodity_opts[:1] if commodity_opts else [])
 commodity = st.sidebar.multiselect("🌿 **Select Commodity**", options=commodity_opts, default=commodity_default)
 
 # 🗾 State filter
 state_opts = sorted(df["state"].dropna().unique())
-state_default = ["Uttar Pradesh"] if "Uttar Pradesh" in state_opts else ([state_opts[0]] if state_opts else [])
+state_default = ["Rajasthan"] if "Rajasthan" in state_opts else ([state_opts[0]] if state_opts else [])
 state = st.sidebar.multiselect("🗾 **Select State**", options=state_opts, default=state_default)
 
 # 🏙️ District filter (depends on State)
 district_opts = sorted(df[df["state"].isin(state)]["district"].dropna().unique())
-district_default = ["Mainpuri"] if "Mainpuri" in district_opts else (district_opts[:1] if district_opts else [])
+district_default = ["Kota"] if "Kota" in district_opts else (district_opts[:1] if district_opts else [])
 district = st.sidebar.multiselect("🏙️ **Select District**", options=district_opts, default=district_default)
 
 # 🏪 Market filter (depends on District)
 market_opts = sorted(df[df["district"].isin(district)]["market"].dropna().unique())
-market_default = ["Mainpuri"] if "Mainpuri" in market_opts else (market_opts[:1] if market_opts else [])
+market_default = ["Itawa"] if "Itawa" in market_opts else (market_opts[:1] if market_opts else [])
 market = st.sidebar.multiselect("🏪 **Select Market**", options=market_opts, default=market_default)
 
 # 🗓️ Date filter
@@ -206,6 +199,7 @@ if "commodity_name" in df_f.columns:
         <div class="value">{f'{volatility:.2f}%' if pd.notna(volatility) else 'N/A'}</div><div class="desc">Std dev / mean</div></div>
         </div>
         """, unsafe_allow_html=True)
+
 # -----------------------------
 # 📈 Monthly Trend
 # -----------------------------
@@ -344,7 +338,3 @@ st.plotly_chart(fig_vol, use_container_width=True)
 # -----------------------------
 st.markdown("<hr style='border:1px solid #333;'>", unsafe_allow_html=True)
 st.caption("📊 FY 2025–26 Data | Hybrid forecasting (Prophet + ARIMA + Baseline) |")
-
-
-
-
