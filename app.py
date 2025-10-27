@@ -26,7 +26,7 @@ st.set_page_config(
 # -----------------------------
 # Database Configuration
 # -----------------------------
-CONNECTION_STRING = "postgresql+psycopg2://doadmin:AVNS_22_hUdTYzlAeXu1LMmp@arpanseva-db-postgresql-blr1-do-user-8204475-0.c.db.ondigitalocean.com:25060/defaultdb"
+CONNECTION_STRING = "db_connection_string"
 
 TABLE_NAME = "commodity_mandi_price"
 
@@ -338,3 +338,4 @@ st.plotly_chart(fig_vol, use_container_width=True)
 # -----------------------------
 st.markdown("<hr style='border:1px solid #333;'>", unsafe_allow_html=True)
 st.caption("📊 FY 2025–26 Data | Hybrid forecasting (Prophet + ARIMA + Baseline) |")
+
